@@ -4,6 +4,8 @@ class Solution:
             return True
         return False
 
+sql_statement = "SELECT customer_id FROM Customer Group by customer_id having COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)"
+
 import pandas as pd
 def pivotTable(weather: pd.DataFrame) -> pd.DataFrame:
     """
