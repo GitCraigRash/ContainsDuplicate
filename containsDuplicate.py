@@ -18,3 +18,13 @@ def pivotTable(weather: pd.DataFrame) -> pd.DataFrame:
 sql_statement = "SELECT user_id, COUNT(follower_id) as followers_count FROM Followers Group by user_id ORDER by user_id ASC;"
 
 sql_statement = "SELECT class FROM (SELECT COUNT(student) as student, class FROM Courses group by class) as a WHERE student >= 5"
+
+sql_statement = "# Write your MySQL query statement below
+SELECT person_name FROM (SELECT person_id, turn, person_name, @cumulative_sum:= @cumulative_sum + weight as cumulative_sum
+FROM Queue
+CROSS JOIN (SELECT @cumulative_sum := 0 ) AS init
+Order By turn) as b1
+WHERE cumulative_sum <= 1000
+Order by turn desc
+LIMIT 1
+ "
