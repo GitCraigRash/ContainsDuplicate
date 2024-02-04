@@ -28,8 +28,11 @@ WHERE cumulative_sum <= 1000
 Order by turn desc
 LIMIT 1
  "
-
-
+sql_statement = "SELECT a1.activity_date as day, COUNT(DISTINCT a1.user_id) as active_users
+FROM ( SELECT * FROM Activity) as a1
+WHERE a1.activity_date < DATe_ADD("2019-06-27", INTERVAL 30 DAY) and a1.activity_date > "2019-06-27"
+GROUP BY a1.activity_date 
+"
 sql_statement = "SELECT c.customer_id
 FROM Customer c
 Group by c.customer_id
