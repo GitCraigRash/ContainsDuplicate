@@ -28,3 +28,10 @@ WHERE cumulative_sum <= 1000
 Order by turn desc
 LIMIT 1
  "
+
+
+sql_statement = "SELECT c.customer_id
+FROM Customer c
+Group by c.customer_id
+having COUNT(DISTINCT c.product_key) >= (SELECT COUNT(*) as product_key FROM Product)
+"
