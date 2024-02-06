@@ -38,3 +38,11 @@ FROM Customer c
 Group by c.customer_id
 having COUNT(DISTINCT c.product_key) >= (SELECT COUNT(*) as product_key FROM Product)
 "
+
+sql_statement = "SELECT ROUND((avg(if(d2.order_date = d2.customer_pref_delivery_date,1,0))*100),2) as immediate_percentage
+FROM (SELECT customer_id,
+MIN(order_date) as order_date,
+MIN(customer_pref_delivery_date) as customer_pref_delivery_date
+FROM Delivery
+group by customer_id) as d2
+"
