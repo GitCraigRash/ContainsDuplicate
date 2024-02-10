@@ -57,3 +57,10 @@ LEFT JOIN (SELECT id, amount FROM Transactions WHERE state = "approved") as t2
 ON t1.id = t2.id
 Group by MONTH(trans_date),YEAR(trans_date), country
 "
+sql_statement = "SELECT s.user_id, ROUND(avg(CASE WHEN action = "timeout" THEN 0
+WHEN action = "confirmed" THEN 1 else 0 END),2) as confirmation_rate
+FROM Signups s
+Left Join Confirmations c
+ON s.user_id = c.user_id
+group by s.user_id
+"
