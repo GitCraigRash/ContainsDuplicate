@@ -46,3 +46,14 @@ MIN(customer_pref_delivery_date) as customer_pref_delivery_date
 FROM Delivery
 group by customer_id) as d2
 "
+sql_statement = "SELECT DATE_FORMAT(t1.trans_date, '%Y-%m') AS month,
+t1.country,
+COUNT(t1.state) as trans_count,
+SUM(t1.state = "approved") as approved_count,
+SUM(t1.amount) as trans_total_amount,
+SUM(IFNULL(t2.amount,0)) as approved_total_amount
+FROM Transactions t1
+LEFT JOIN (SELECT id, amount FROM Transactions WHERE state = "approved") as t2
+ON t1.id = t2.id
+Group by MONTH(trans_date),YEAR(trans_date), country
+"
